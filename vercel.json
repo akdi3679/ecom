@@ -1,6 +1,11 @@
-{
+﻿{
   "buildCommand": "npm install && npx medusa build --admin-only",
   "outputDirectory": ".medusa/admin",
   "installCommand": "npm install",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/app", "destination": "/index.html" },
+    { "source": "/app/(.*)", "destination": "/" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

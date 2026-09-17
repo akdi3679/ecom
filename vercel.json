@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm install && npx medusa build --admin-only",
+  "outputDirectory": ".medusa/admin",
+  "installCommand": "npm install",
+  "framework": null
+}

@@ -4,7 +4,7 @@ loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 module.exports = defineConfig({
   admin: {
-    disable: true,
+    disable: true,`n    path: "/",`n    disable: false,
     backendUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
   },
   

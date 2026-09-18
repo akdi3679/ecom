@@ -21,4 +21,7 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   }
-})
+
+  logger: {
+    level: process.env.NODE_ENV === "production" ? "info" : "debug",
+  },})

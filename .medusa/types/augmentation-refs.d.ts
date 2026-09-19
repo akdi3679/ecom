@@ -21,6 +21,7 @@
 /// <reference types="@medusajs/medusa/user" />
 /// <reference types="@medusajs/medusa/fulfillment" />
 /// <reference types="@medusajs/medusa/notification" />
+/// <reference types="@medusajs/medusa/search" />
 /// <reference types="@medusajs/medusa/cache-inmemory" />
 /// <reference types="@medusajs/medusa/event-bus-local" />
 /// <reference types="@medusajs/medusa/workflow-engine-inmemory" />

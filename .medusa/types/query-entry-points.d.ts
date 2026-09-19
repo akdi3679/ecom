@@ -17,6 +17,363 @@ export type Scalars = {
   JSON: { input: Record<string, unknown>; output: Record<string, unknown>; }
 };
 
+export type StockLocationAddress = {
+  __typename?: 'StockLocationAddress';
+  id: Maybe<Scalars['ID']['output']>;
+  address_1: Scalars['String']['output'];
+  address_2: Maybe<Scalars['String']['output']>;
+  company: Maybe<Scalars['String']['output']>;
+  country_code: Scalars['String']['output'];
+  city: Maybe<Scalars['String']['output']>;
+  phone: Maybe<Scalars['String']['output']>;
+  postal_code: Maybe<Scalars['String']['output']>;
+  province: Maybe<Scalars['String']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  stock_locations: Maybe<StockLocation>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type StockLocation = {
+  __typename?: 'StockLocation';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  address_id: Scalars['ID']['output'];
+  address: Maybe<StockLocationAddress>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  fulfillment_provider_link: Maybe<Array<Maybe<LinkLocationFulfillmentProvider>>>;
+  fulfillment_providers: Maybe<Array<Maybe<FulfillmentProvider>>>;
+  fulfillment_set_link: Maybe<Array<Maybe<LinkLocationFulfillmentSet>>>;
+  fulfillment_sets: Maybe<Array<Maybe<FulfillmentSet>>>;
+  sales_channels_link: Maybe<Array<Maybe<LinkSalesChannelStockLocation>>>;
+  sales_channels: Maybe<Array<Maybe<SalesChannel>>>;
+};
+
+export type InventoryItem = {
+  __typename?: 'InventoryItem';
+  id: Scalars['ID']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  sku: Maybe<Scalars['String']['output']>;
+  origin_country: Maybe<Scalars['String']['output']>;
+  hs_code: Maybe<Scalars['String']['output']>;
+  mid_code: Maybe<Scalars['String']['output']>;
+  material: Maybe<Scalars['String']['output']>;
+  unit_of_measure: Maybe<Scalars['String']['output']>;
+  weight: Maybe<Scalars['Int']['output']>;
+  length: Maybe<Scalars['Int']['output']>;
+  height: Maybe<Scalars['Int']['output']>;
+  width: Maybe<Scalars['Int']['output']>;
+  requires_shipping: Scalars['Boolean']['output'];
+  description: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  thumbnail: Maybe<Scalars['String']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  location_levels: Maybe<Array<Maybe<InventoryLevel>>>;
+  reservation_items: Maybe<Array<Maybe<ReservationItem>>>;
+  reserved_quantity: Scalars['Float']['output'];
+  stocked_quantity: Scalars['Float']['output'];
+  variant_link: Maybe<Array<Maybe<LinkProductVariantInventoryItem>>>;
+  variants: Maybe<Array<Maybe<ProductVariant>>>;
+};
+
+export type InventoryLevel = {
+  __typename?: 'InventoryLevel';
+  id: Scalars['ID']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  inventory_item_id: Scalars['String']['output'];
+  inventory_item: InventoryItem;
+  location_id: Scalars['String']['output'];
+  stocked_quantity: Scalars['Float']['output'];
+  reserved_quantity: Scalars['Float']['output'];
+  incoming_quantity: Scalars['Float']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  available_quantity: Scalars['Float']['output'];
+  stock_locations: Maybe<Array<Maybe<StockLocation>>>;
+};
+
+export type ReservationItem = {
+  __typename?: 'ReservationItem';
+  id: Scalars['ID']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  line_item_id: Maybe<Scalars['String']['output']>;
+  allow_backorder: Scalars['Boolean']['output'];
+  inventory_item_id: Scalars['String']['output'];
+  inventory_item: InventoryItem;
+  location_id: Scalars['String']['output'];
+  quantity: Scalars['Float']['output'];
+  external_id: Maybe<Scalars['String']['output']>;
+  description: Maybe<Scalars['String']['output']>;
+  created_by: Maybe<Scalars['String']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+};
+
+export type ProductStatus =
+  | 'draft'
+  | 'proposed'
+  | 'published'
+  | 'rejected';
+
+export type Product = {
+  __typename?: 'Product';
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+  handle: Scalars['String']['output'];
+  subtitle: Maybe<Scalars['String']['output']>;
+  description: Maybe<Scalars['String']['output']>;
+  is_giftcard: Scalars['Boolean']['output'];
+  status: ProductStatus;
+  thumbnail: Maybe<Scalars['String']['output']>;
+  width: Maybe<Scalars['Float']['output']>;
+  weight: Maybe<Scalars['Float']['output']>;
+  length: Maybe<Scalars['Float']['output']>;
+  height: Maybe<Scalars['Float']['output']>;
+  origin_country: Maybe<Scalars['String']['output']>;
+  hs_code: Maybe<Scalars['String']['output']>;
+  mid_code: Maybe<Scalars['String']['output']>;
+  material: Maybe<Scalars['String']['output']>;
+  collection: Maybe<ProductCollection>;
+  collection_id: Maybe<Scalars['String']['output']>;
+  categories: Maybe<Array<Maybe<ProductCategory>>>;
+  type: Maybe<ProductType>;
+  type_id: Maybe<Scalars['String']['output']>;
+  tags: Array<ProductTag>;
+  variants: Array<ProductVariant>;
+  options: Array<ProductOption>;
+  images: Array<ProductImage>;
+  discountable: Maybe<Scalars['Boolean']['output']>;
+  external_id: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  sales_channels_link: Maybe<Array<Maybe<LinkProductSalesChannel>>>;
+  sales_channels: Maybe<Array<Maybe<SalesChannel>>>;
+  shipping_profiles_link: Maybe<LinkProductShippingProfile>;
+  shipping_profile: Maybe<ShippingProfile>;
+};
+
+export type ProductVariant = {
+  __typename?: 'ProductVariant';
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+  sku: Maybe<Scalars['String']['output']>;
+  barcode: Maybe<Scalars['String']['output']>;
+  ean: Maybe<Scalars['String']['output']>;
+  upc: Maybe<Scalars['String']['output']>;
+  allow_backorder: Scalars['Boolean']['output'];
+  manage_inventory: Scalars['Boolean']['output'];
+  requires_shipping: Scalars['Boolean']['output'];
+  hs_code: Maybe<Scalars['String']['output']>;
+  origin_country: Maybe<Scalars['String']['output']>;
+  mid_code: Maybe<Scalars['String']['output']>;
+  material: Maybe<Scalars['String']['output']>;
+  weight: Maybe<Scalars['Float']['output']>;
+  length: Maybe<Scalars['Float']['output']>;
+  height: Maybe<Scalars['Float']['output']>;
+  width: Maybe<Scalars['Float']['output']>;
+  options: Array<ProductOptionValue>;
+  images: Array<ProductImage>;
+  thumbnail: Maybe<Scalars['String']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  product: Maybe<Product>;
+  product_id: Maybe<Scalars['String']['output']>;
+  variant_rank: Maybe<Scalars['Int']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  inventory_items: Maybe<Array<Maybe<LinkProductVariantInventoryItem>>>;
+  inventory: Maybe<Array<Maybe<InventoryItem>>>;
+  price_set_link: Maybe<LinkProductVariantPriceSet>;
+  price_set: Maybe<PriceSet>;
+  order_items: Maybe<Array<Maybe<OrderLineItem>>>;
+};
+
+export type ProductCategory = {
+  __typename?: 'ProductCategory';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  handle: Scalars['String']['output'];
+  mpath: Scalars['String']['output'];
+  is_active: Scalars['Boolean']['output'];
+  is_internal: Scalars['Boolean']['output'];
+  rank: Scalars['Int']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  parent_category: Maybe<ProductCategory>;
+  parent_category_id: Maybe<Scalars['String']['output']>;
+  category_children: Array<ProductCategory>;
+  products: Array<Product>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProductTag = {
+  __typename?: 'ProductTag';
+  id: Scalars['ID']['output'];
+  value: Scalars['String']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  products: Maybe<Array<Maybe<Product>>>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProductCollection = {
+  __typename?: 'ProductCollection';
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+  handle: Scalars['String']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  products: Maybe<Array<Maybe<Product>>>;
+};
+
+export type ProductType = {
+  __typename?: 'ProductType';
+  id: Scalars['ID']['output'];
+  value: Scalars['String']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  products: Maybe<Array<Maybe<Product>>>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProductOption = {
+  __typename?: 'ProductOption';
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+  is_exclusive: Scalars['Boolean']['output'];
+  products: Array<Product>;
+  values: Array<ProductOptionValue>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProductImage = {
+  __typename?: 'ProductImage';
+  id: Scalars['ID']['output'];
+  url: Scalars['String']['output'];
+  rank: Scalars['Int']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  product: Maybe<Product>;
+  product_id: Maybe<Scalars['String']['output']>;
+  variants: Maybe<Array<Maybe<ProductVariant>>>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProductOptionValue = {
+  __typename?: 'ProductOptionValue';
+  id: Scalars['ID']['output'];
+  value: Scalars['String']['output'];
+  option: Maybe<ProductOption>;
+  option_id: Maybe<Scalars['String']['output']>;
+  variants: Maybe<Array<Maybe<ProductVariant>>>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProductVariantProductImage = {
+  __typename?: 'ProductVariantProductImage';
+  id: Scalars['ID']['output'];
+  variant: ProductVariant;
+  variant_id: Scalars['String']['output'];
+  image: ProductImage;
+  image_id: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PriceSet = {
+  __typename?: 'PriceSet';
+  id: Scalars['ID']['output'];
+  prices: Array<Maybe<Price>>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  variant_link: Maybe<LinkProductVariantPriceSet>;
+  variant: Maybe<ProductVariant>;
+  shipping_option_link: Maybe<LinkShippingOptionPriceSet>;
+  shipping_option: Maybe<ShippingOption>;
+};
+
+export type PriceListStatusEnum =
+  | 'active'
+  | 'draft';
+
+export type PriceListTypeEnum =
+  | 'sale'
+  | 'override';
+
+export type PriceList = {
+  __typename?: 'PriceList';
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  status: PriceListStatusEnum;
+  type: PriceListTypeEnum;
+  starts_at: Maybe<Scalars['DateTime']['output']>;
+  ends_at: Maybe<Scalars['DateTime']['output']>;
+  rules_count: Maybe<Scalars['Int']['output']>;
+  prices: Array<Maybe<Price>>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Price = {
+  __typename?: 'Price';
+  id: Scalars['ID']['output'];
+  title: Maybe<Scalars['String']['output']>;
+  currency_code: Scalars['String']['output'];
+  amount: Scalars['Float']['output'];
+  min_quantity: Maybe<Scalars['Float']['output']>;
+  max_quantity: Maybe<Scalars['Float']['output']>;
+  rules_count: Maybe<Scalars['Int']['output']>;
+  price_set_id: Scalars['String']['output'];
+  price_set: PriceSet;
+  price_list_id: Maybe<Scalars['String']['output']>;
+  price_list: Maybe<PriceList>;
+  raw_amount: Scalars['JSON']['output'];
+  raw_min_quantity: Maybe<Scalars['JSON']['output']>;
+  raw_max_quantity: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PricePreference = {
+  __typename?: 'PricePreference';
+  id: Scalars['ID']['output'];
+  attribute: Scalars['String']['output'];
+  value: Maybe<Scalars['String']['output']>;
+  is_tax_inclusive: Scalars['Boolean']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
 export type PromotionTypeEnum =
   | 'standard'
   | 'buyget';
@@ -260,42 +617,6 @@ export type SalesChannel = {
   stock_locations: Maybe<Array<Maybe<StockLocation>>>;
 };
 
-export type StockLocationAddress = {
-  __typename?: 'StockLocationAddress';
-  id: Maybe<Scalars['ID']['output']>;
-  address_1: Scalars['String']['output'];
-  address_2: Maybe<Scalars['String']['output']>;
-  company: Maybe<Scalars['String']['output']>;
-  country_code: Scalars['String']['output'];
-  city: Maybe<Scalars['String']['output']>;
-  phone: Maybe<Scalars['String']['output']>;
-  postal_code: Maybe<Scalars['String']['output']>;
-  province: Maybe<Scalars['String']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  stock_locations: Maybe<StockLocation>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type StockLocation = {
-  __typename?: 'StockLocation';
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  address_id: Scalars['ID']['output'];
-  address: Maybe<StockLocationAddress>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-  fulfillment_provider_link: Maybe<Array<Maybe<LinkLocationFulfillmentProvider>>>;
-  fulfillment_providers: Maybe<Array<Maybe<FulfillmentProvider>>>;
-  fulfillment_set_link: Maybe<Array<Maybe<LinkLocationFulfillmentSet>>>;
-  fulfillment_sets: Maybe<Array<Maybe<FulfillmentSet>>>;
-  sales_channels_link: Maybe<Array<Maybe<LinkSalesChannelStockLocation>>>;
-  sales_channels: Maybe<Array<Maybe<SalesChannel>>>;
-};
-
 export type Cart = {
   __typename?: 'Cart';
   id: Scalars['ID']['output'];
@@ -530,6 +851,38 @@ export type ShippingMethodTaxLine = {
   data: Maybe<Scalars['JSON']['output']>;
   shipping_method_id: Scalars['String']['output'];
   shipping_method: ShippingMethod;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Region = {
+  __typename?: 'Region';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  currency_code: Scalars['String']['output'];
+  automatic_taxes: Scalars['Boolean']['output'];
+  countries: Array<Maybe<Country>>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  carts: Maybe<Array<Maybe<Cart>>>;
+  orders: Maybe<Array<Maybe<Order>>>;
+  payment_provider_link: Maybe<Array<Maybe<LinkRegionPaymentProvider>>>;
+  payment_providers: Maybe<Array<Maybe<PaymentProvider>>>;
+};
+
+export type Country = {
+  __typename?: 'Country';
+  iso_2: Scalars['ID']['output'];
+  iso_3: Scalars['String']['output'];
+  num_code: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  display_name: Scalars['String']['output'];
+  region_id: Maybe<Scalars['String']['output']>;
+  region: Maybe<Region>;
+  metadata: Maybe<Scalars['JSON']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
@@ -825,104 +1178,6 @@ export type Refund = {
   created_by: Maybe<Scalars['String']['output']>;
   metadata: Maybe<Scalars['JSON']['output']>;
   raw_amount: Scalars['JSON']['output'];
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ViewConfiguration = {
-  __typename?: 'ViewConfiguration';
-  id: Scalars['ID']['output'];
-  entity: Scalars['String']['output'];
-  name: Maybe<Scalars['String']['output']>;
-  user_id: Maybe<Scalars['String']['output']>;
-  is_system_default: Scalars['Boolean']['output'];
-  configuration: Scalars['JSON']['output'];
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type UserPreference = {
-  __typename?: 'UserPreference';
-  id: Scalars['ID']['output'];
-  user_id: Scalars['String']['output'];
-  key: Scalars['String']['output'];
-  value: Scalars['JSON']['output'];
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type PropertyLabel = {
-  __typename?: 'PropertyLabel';
-  id: Scalars['ID']['output'];
-  entity: Scalars['String']['output'];
-  property: Scalars['String']['output'];
-  label: Scalars['String']['output'];
-  description: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type LayoutConfiguration = {
-  __typename?: 'LayoutConfiguration';
-  id: Scalars['ID']['output'];
-  zone: Scalars['String']['output'];
-  user_id: Maybe<Scalars['String']['output']>;
-  is_system_default: Scalars['Boolean']['output'];
-  configuration: Scalars['JSON']['output'];
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type User = {
-  __typename?: 'User';
-  id: Scalars['ID']['output'];
-  first_name: Maybe<Scalars['String']['output']>;
-  last_name: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  avatar_url: Maybe<Scalars['String']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type Invite = {
-  __typename?: 'Invite';
-  id: Scalars['ID']['output'];
-  email: Scalars['String']['output'];
-  accepted: Scalars['Boolean']['output'];
-  token: Scalars['String']['output'];
-  expires_at: Scalars['DateTime']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type WorkflowExecutionStateEnum =
-  | 'not_started'
-  | 'invoking'
-  | 'waiting_to_compensate'
-  | 'compensating'
-  | 'done'
-  | 'reverted'
-  | 'failed';
-
-export type WorkflowExecution = {
-  __typename?: 'WorkflowExecution';
-  id: Scalars['ID']['output'];
-  workflow_id: Scalars['ID']['output'];
-  transaction_id: Scalars['ID']['output'];
-  run_id: Scalars['ID']['output'];
-  execution: Maybe<Scalars['JSON']['output']>;
-  context: Maybe<Scalars['JSON']['output']>;
-  state: WorkflowExecutionStateEnum;
-  retention_time: Maybe<Scalars['Int']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
@@ -1614,6 +1869,7 @@ export type OrderChange = {
   canceled_by: Maybe<Scalars['String']['output']>;
   canceled_at: Maybe<Scalars['DateTime']['output']>;
   carry_over_promotions: Maybe<Scalars['Boolean']['output']>;
+  no_notification: Maybe<Scalars['Boolean']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
 };
@@ -1664,353 +1920,99 @@ export type OrderTransaction = {
   updated_at: Scalars['DateTime']['output'];
 };
 
-export type InventoryItem = {
-  __typename?: 'InventoryItem';
+export type ViewConfiguration = {
+  __typename?: 'ViewConfiguration';
   id: Scalars['ID']['output'];
+  entity: Scalars['String']['output'];
+  name: Maybe<Scalars['String']['output']>;
+  user_id: Maybe<Scalars['String']['output']>;
+  is_system_default: Scalars['Boolean']['output'];
+  configuration: Scalars['JSON']['output'];
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
-  sku: Maybe<Scalars['String']['output']>;
-  origin_country: Maybe<Scalars['String']['output']>;
-  hs_code: Maybe<Scalars['String']['output']>;
-  mid_code: Maybe<Scalars['String']['output']>;
-  material: Maybe<Scalars['String']['output']>;
-  weight: Maybe<Scalars['Int']['output']>;
-  length: Maybe<Scalars['Int']['output']>;
-  height: Maybe<Scalars['Int']['output']>;
-  width: Maybe<Scalars['Int']['output']>;
-  requires_shipping: Scalars['Boolean']['output'];
+};
+
+export type UserPreference = {
+  __typename?: 'UserPreference';
+  id: Scalars['ID']['output'];
+  user_id: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  value: Scalars['JSON']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PropertyLabel = {
+  __typename?: 'PropertyLabel';
+  id: Scalars['ID']['output'];
+  entity: Scalars['String']['output'];
+  property: Scalars['String']['output'];
+  label: Scalars['String']['output'];
   description: Maybe<Scalars['String']['output']>;
-  title: Maybe<Scalars['String']['output']>;
-  thumbnail: Maybe<Scalars['String']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  location_levels: Maybe<Array<Maybe<InventoryLevel>>>;
-  reservation_items: Maybe<Array<Maybe<ReservationItem>>>;
-  reserved_quantity: Scalars['Int']['output'];
-  stocked_quantity: Scalars['Int']['output'];
-  variant_link: Maybe<Array<Maybe<LinkProductVariantInventoryItem>>>;
-  variants: Maybe<Array<Maybe<ProductVariant>>>;
-};
-
-export type InventoryLevel = {
-  __typename?: 'InventoryLevel';
-  id: Scalars['ID']['output'];
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
-  inventory_item_id: Scalars['String']['output'];
-  inventory_item: InventoryItem;
-  location_id: Scalars['String']['output'];
-  stocked_quantity: Scalars['Int']['output'];
-  reserved_quantity: Scalars['Int']['output'];
-  incoming_quantity: Scalars['Int']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  available_quantity: Scalars['Int']['output'];
-  stock_locations: Maybe<Array<Maybe<StockLocation>>>;
 };
 
-export type ReservationItem = {
-  __typename?: 'ReservationItem';
+export type LayoutConfiguration = {
+  __typename?: 'LayoutConfiguration';
   id: Scalars['ID']['output'];
+  zone: Scalars['String']['output'];
+  user_id: Maybe<Scalars['String']['output']>;
+  is_system_default: Scalars['Boolean']['output'];
+  configuration: Scalars['JSON']['output'];
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
-  line_item_id: Maybe<Scalars['String']['output']>;
-  allow_backorder: Scalars['Boolean']['output'];
-  inventory_item_id: Scalars['String']['output'];
-  inventory_item: InventoryItem;
-  location_id: Scalars['String']['output'];
-  quantity: Scalars['Int']['output'];
-  external_id: Maybe<Scalars['String']['output']>;
-  description: Maybe<Scalars['String']['output']>;
-  created_by: Maybe<Scalars['String']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
 };
 
-export type Region = {
-  __typename?: 'Region';
+export type User = {
+  __typename?: 'User';
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  currency_code: Scalars['String']['output'];
-  automatic_taxes: Scalars['Boolean']['output'];
-  countries: Array<Maybe<Country>>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-  carts: Maybe<Array<Maybe<Cart>>>;
-  orders: Maybe<Array<Maybe<Order>>>;
-  payment_provider_link: Maybe<Array<Maybe<LinkRegionPaymentProvider>>>;
-  payment_providers: Maybe<Array<Maybe<PaymentProvider>>>;
-};
-
-export type Country = {
-  __typename?: 'Country';
-  iso_2: Scalars['ID']['output'];
-  iso_3: Scalars['String']['output'];
-  num_code: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  display_name: Scalars['String']['output'];
-  region_id: Maybe<Scalars['String']['output']>;
-  region: Maybe<Region>;
+  first_name: Maybe<Scalars['String']['output']>;
+  last_name: Maybe<Scalars['String']['output']>;
+  email: Scalars['String']['output'];
+  avatar_url: Maybe<Scalars['String']['output']>;
   metadata: Maybe<Scalars['JSON']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type ProductStatus =
-  | 'draft'
-  | 'proposed'
-  | 'published'
-  | 'rejected';
-
-export type Product = {
-  __typename?: 'Product';
+export type Invite = {
+  __typename?: 'Invite';
   id: Scalars['ID']['output'];
-  title: Scalars['String']['output'];
-  handle: Scalars['String']['output'];
-  subtitle: Maybe<Scalars['String']['output']>;
-  description: Maybe<Scalars['String']['output']>;
-  is_giftcard: Scalars['Boolean']['output'];
-  status: ProductStatus;
-  thumbnail: Maybe<Scalars['String']['output']>;
-  width: Maybe<Scalars['Float']['output']>;
-  weight: Maybe<Scalars['Float']['output']>;
-  length: Maybe<Scalars['Float']['output']>;
-  height: Maybe<Scalars['Float']['output']>;
-  origin_country: Maybe<Scalars['String']['output']>;
-  hs_code: Maybe<Scalars['String']['output']>;
-  mid_code: Maybe<Scalars['String']['output']>;
-  material: Maybe<Scalars['String']['output']>;
-  collection: Maybe<ProductCollection>;
-  collection_id: Maybe<Scalars['String']['output']>;
-  categories: Maybe<Array<Maybe<ProductCategory>>>;
-  type: Maybe<ProductType>;
-  type_id: Maybe<Scalars['String']['output']>;
-  tags: Array<ProductTag>;
-  variants: Array<ProductVariant>;
-  options: Array<ProductOption>;
-  images: Array<ProductImage>;
-  discountable: Maybe<Scalars['Boolean']['output']>;
-  external_id: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  sales_channels_link: Maybe<Array<Maybe<LinkProductSalesChannel>>>;
-  sales_channels: Maybe<Array<Maybe<SalesChannel>>>;
-  shipping_profiles_link: Maybe<LinkProductShippingProfile>;
-  shipping_profile: Maybe<ShippingProfile>;
-};
-
-export type ProductVariant = {
-  __typename?: 'ProductVariant';
-  id: Scalars['ID']['output'];
-  title: Scalars['String']['output'];
-  sku: Maybe<Scalars['String']['output']>;
-  barcode: Maybe<Scalars['String']['output']>;
-  ean: Maybe<Scalars['String']['output']>;
-  upc: Maybe<Scalars['String']['output']>;
-  allow_backorder: Scalars['Boolean']['output'];
-  manage_inventory: Scalars['Boolean']['output'];
-  requires_shipping: Scalars['Boolean']['output'];
-  hs_code: Maybe<Scalars['String']['output']>;
-  origin_country: Maybe<Scalars['String']['output']>;
-  mid_code: Maybe<Scalars['String']['output']>;
-  material: Maybe<Scalars['String']['output']>;
-  weight: Maybe<Scalars['Float']['output']>;
-  length: Maybe<Scalars['Float']['output']>;
-  height: Maybe<Scalars['Float']['output']>;
-  width: Maybe<Scalars['Float']['output']>;
-  options: Array<ProductOptionValue>;
-  images: Array<ProductImage>;
-  thumbnail: Maybe<Scalars['String']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  product: Maybe<Product>;
-  product_id: Maybe<Scalars['String']['output']>;
-  variant_rank: Maybe<Scalars['Int']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-  inventory_items: Maybe<Array<Maybe<LinkProductVariantInventoryItem>>>;
-  inventory: Maybe<Array<Maybe<InventoryItem>>>;
-  price_set_link: Maybe<LinkProductVariantPriceSet>;
-  price_set: Maybe<PriceSet>;
-  order_items: Maybe<Array<Maybe<OrderLineItem>>>;
-};
-
-export type ProductCategory = {
-  __typename?: 'ProductCategory';
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  description: Scalars['String']['output'];
-  handle: Scalars['String']['output'];
-  mpath: Scalars['String']['output'];
-  is_active: Scalars['Boolean']['output'];
-  is_internal: Scalars['Boolean']['output'];
-  rank: Scalars['Int']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  parent_category: Maybe<ProductCategory>;
-  parent_category_id: Maybe<Scalars['String']['output']>;
-  category_children: Array<ProductCategory>;
-  products: Array<Product>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ProductTag = {
-  __typename?: 'ProductTag';
-  id: Scalars['ID']['output'];
-  value: Scalars['String']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  products: Maybe<Array<Maybe<Product>>>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ProductCollection = {
-  __typename?: 'ProductCollection';
-  id: Scalars['ID']['output'];
-  title: Scalars['String']['output'];
-  handle: Scalars['String']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-  products: Maybe<Array<Maybe<Product>>>;
-};
-
-export type ProductType = {
-  __typename?: 'ProductType';
-  id: Scalars['ID']['output'];
-  value: Scalars['String']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  products: Maybe<Array<Maybe<Product>>>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ProductOption = {
-  __typename?: 'ProductOption';
-  id: Scalars['ID']['output'];
-  title: Scalars['String']['output'];
-  is_exclusive: Scalars['Boolean']['output'];
-  products: Array<Product>;
-  values: Array<ProductOptionValue>;
+  email: Scalars['String']['output'];
+  accepted: Scalars['Boolean']['output'];
+  token: Scalars['String']['output'];
+  expires_at: Scalars['DateTime']['output'];
   metadata: Maybe<Scalars['JSON']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type ProductImage = {
-  __typename?: 'ProductImage';
+export type WorkflowExecutionStateEnum =
+  | 'not_started'
+  | 'invoking'
+  | 'waiting_to_compensate'
+  | 'compensating'
+  | 'done'
+  | 'reverted'
+  | 'failed';
+
+export type WorkflowExecution = {
+  __typename?: 'WorkflowExecution';
   id: Scalars['ID']['output'];
-  url: Scalars['String']['output'];
-  rank: Scalars['Int']['output'];
-  metadata: Maybe<Scalars['JSON']['output']>;
-  product: Maybe<Product>;
-  product_id: Maybe<Scalars['String']['output']>;
-  variants: Maybe<Array<Maybe<ProductVariant>>>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ProductOptionValue = {
-  __typename?: 'ProductOptionValue';
-  id: Scalars['ID']['output'];
-  value: Scalars['String']['output'];
-  option: Maybe<ProductOption>;
-  option_id: Maybe<Scalars['String']['output']>;
-  variants: Maybe<Array<Maybe<ProductVariant>>>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ProductVariantProductImage = {
-  __typename?: 'ProductVariantProductImage';
-  id: Scalars['ID']['output'];
-  variant: ProductVariant;
-  variant_id: Scalars['String']['output'];
-  image: ProductImage;
-  image_id: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type PriceSet = {
-  __typename?: 'PriceSet';
-  id: Scalars['ID']['output'];
-  prices: Array<Maybe<Price>>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-  variant_link: Maybe<LinkProductVariantPriceSet>;
-  variant: Maybe<ProductVariant>;
-  shipping_option_link: Maybe<LinkShippingOptionPriceSet>;
-  shipping_option: Maybe<ShippingOption>;
-};
-
-export type PriceListStatusEnum =
-  | 'active'
-  | 'draft';
-
-export type PriceListTypeEnum =
-  | 'sale'
-  | 'override';
-
-export type PriceList = {
-  __typename?: 'PriceList';
-  id: Scalars['ID']['output'];
-  title: Scalars['String']['output'];
-  description: Scalars['String']['output'];
-  status: PriceListStatusEnum;
-  type: PriceListTypeEnum;
-  starts_at: Maybe<Scalars['DateTime']['output']>;
-  ends_at: Maybe<Scalars['DateTime']['output']>;
-  rules_count: Maybe<Scalars['Int']['output']>;
-  prices: Array<Maybe<Price>>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type Price = {
-  __typename?: 'Price';
-  id: Scalars['ID']['output'];
-  title: Maybe<Scalars['String']['output']>;
-  currency_code: Scalars['String']['output'];
-  amount: Scalars['Float']['output'];
-  min_quantity: Maybe<Scalars['Float']['output']>;
-  max_quantity: Maybe<Scalars['Float']['output']>;
-  rules_count: Maybe<Scalars['Int']['output']>;
-  price_set_id: Scalars['String']['output'];
-  price_set: PriceSet;
-  price_list_id: Maybe<Scalars['String']['output']>;
-  price_list: Maybe<PriceList>;
-  raw_amount: Scalars['JSON']['output'];
-  raw_min_quantity: Maybe<Scalars['JSON']['output']>;
-  raw_max_quantity: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type PricePreference = {
-  __typename?: 'PricePreference';
-  id: Scalars['ID']['output'];
-  attribute: Scalars['String']['output'];
-  value: Maybe<Scalars['String']['output']>;
-  is_tax_inclusive: Scalars['Boolean']['output'];
+  workflow_id: Scalars['ID']['output'];
+  transaction_id: Scalars['ID']['output'];
+  run_id: Scalars['ID']['output'];
+  execution: Maybe<Scalars['JSON']['output']>;
+  context: Maybe<Scalars['JSON']['output']>;
+  state: WorkflowExecutionStateEnum;
+  retention_time: Maybe<Scalars['Int']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
@@ -2406,7 +2408,7 @@ export type LinkProductVariantInventoryItem = {
   __typename?: 'LinkProductVariantInventoryItem';
   variant_id: Scalars['String']['output'];
   inventory_item_id: Scalars['String']['output'];
-  required_quantity: Scalars['Int']['output'];
+  required_quantity: Scalars['Float']['output'];
   variant: Maybe<ProductVariant>;
   inventory: Maybe<InventoryItem>;
   createdAt: Scalars['String']['output'];
@@ -2471,6 +2473,47 @@ export type LinkShippingOptionPriceSet = {
 
 declare module '@medusajs/framework/types' {
   interface RemoteQueryEntryPoints {
+    stock_location_address: StockLocationAddress
+    stock_location_addresses: StockLocationAddress
+    stock_location: StockLocation
+    stock_locations: StockLocation
+    inventory_items: InventoryItem
+    inventory_item: InventoryItem
+    inventory: InventoryItem
+    reservation: ReservationItem
+    reservations: ReservationItem
+    reservation_item: ReservationItem
+    reservation_items: ReservationItem
+    inventory_level: InventoryLevel
+    inventory_levels: InventoryLevel
+    product_variant: ProductVariant
+    product_variants: ProductVariant
+    variant: ProductVariant
+    variants: ProductVariant
+    product: Product
+    products: Product
+    product_option: ProductOption
+    product_options: ProductOption
+    product_option_value: ProductOptionValue
+    product_option_values: ProductOptionValue
+    product_type: ProductType
+    product_types: ProductType
+    product_tag: ProductTag
+    product_tags: ProductTag
+    product_collection: ProductCollection
+    product_collections: ProductCollection
+    product_category: ProductCategory
+    product_categories: ProductCategory
+    product_image: ProductImage
+    product_images: ProductImage
+    price_set: PriceSet
+    price_sets: PriceSet
+    price_list: PriceList
+    price_lists: PriceList
+    price: Price
+    prices: Price
+    price_preference: PricePreference
+    price_preferences: PricePreference
     promotion: Promotion
     promotions: Promotion
     application_method: ApplicationMethod
@@ -2495,10 +2538,6 @@ declare module '@medusajs/framework/types' {
     customers: Customer
     sales_channel: SalesChannel
     sales_channels: SalesChannel
-    stock_location_address: StockLocationAddress
-    stock_location_addresses: StockLocationAddress
-    stock_location: StockLocation
-    stock_locations: StockLocation
     cart: Cart
     carts: Cart
     credit_line: CreditLine
@@ -2517,6 +2556,10 @@ declare module '@medusajs/framework/types' {
     shipping_method_adjustments: ShippingMethodAdjustment
     shipping_method_tax_line: ShippingMethodTaxLine
     shipping_method_tax_lines: ShippingMethodTaxLine
+    region: Region
+    regions: Region
+    country: Country
+    countries: Country
     api_key: ApiKey
     api_keys: ApiKey
     store: Store
@@ -2553,20 +2596,6 @@ declare module '@medusajs/framework/types' {
     refund_reasons: RefundReason
     refund: Refund
     refunds: Refund
-    view_configuration: ViewConfiguration
-    view_configurations: ViewConfiguration
-    user_preference: UserPreference
-    user_preferences: UserPreference
-    property_label: PropertyLabel
-    property_labels: PropertyLabel
-    layout_configuration: LayoutConfiguration
-    layout_configurations: LayoutConfiguration
-    user: User
-    users: User
-    invite: Invite
-    invites: Invite
-    workflow_execution: WorkflowExecution
-    workflow_executions: WorkflowExecution
     order: Order
     orders: Order
     order_address: OrderAddress
@@ -2589,47 +2618,20 @@ declare module '@medusajs/framework/types' {
     returns: Return
     return_reason: ReturnReason
     return_reasons: ReturnReason
-    inventory_items: InventoryItem
-    inventory_item: InventoryItem
-    inventory: InventoryItem
-    reservation: ReservationItem
-    reservations: ReservationItem
-    reservation_item: ReservationItem
-    reservation_items: ReservationItem
-    inventory_level: InventoryLevel
-    inventory_levels: InventoryLevel
-    region: Region
-    regions: Region
-    country: Country
-    countries: Country
-    product_variant: ProductVariant
-    product_variants: ProductVariant
-    variant: ProductVariant
-    variants: ProductVariant
-    product: Product
-    products: Product
-    product_option: ProductOption
-    product_options: ProductOption
-    product_option_value: ProductOptionValue
-    product_option_values: ProductOptionValue
-    product_type: ProductType
-    product_types: ProductType
-    product_tag: ProductTag
-    product_tags: ProductTag
-    product_collection: ProductCollection
-    product_collections: ProductCollection
-    product_category: ProductCategory
-    product_categories: ProductCategory
-    product_image: ProductImage
-    product_images: ProductImage
-    price_set: PriceSet
-    price_sets: PriceSet
-    price_list: PriceList
-    price_lists: PriceList
-    price: Price
-    prices: Price
-    price_preference: PricePreference
-    price_preferences: PricePreference
+    view_configuration: ViewConfiguration
+    view_configurations: ViewConfiguration
+    user_preference: UserPreference
+    user_preferences: UserPreference
+    property_label: PropertyLabel
+    property_labels: PropertyLabel
+    layout_configuration: LayoutConfiguration
+    layout_configurations: LayoutConfiguration
+    user: User
+    users: User
+    invite: Invite
+    invites: Invite
+    workflow_execution: WorkflowExecution
+    workflow_executions: WorkflowExecution
     auth_identity: AuthIdentity
     auth_identities: AuthIdentity
     provider_identity: ProviderIdentity

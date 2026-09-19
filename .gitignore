@@ -23,4 +23,9 @@ build
 !.yarn/sdks
 !.yarn/versions
 
-.medusa
+#.medusa
+# Secrets - never commit
+.env
+admin-token.txt
+store-config.txt
+la-bonne-cle.txt

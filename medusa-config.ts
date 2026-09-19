@@ -5,6 +5,7 @@ loadEnv(process.env.NODE_ENV || "development", process.cwd())
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
+    redisUrl: process.env.REDIS_URL, // <--- THIS LINE FIXES THE SESSION ISSUE
     http: {
       storeCors: process.env.STORE_CORS || "http://localhost:8000",
       adminCors: process.env.ADMIN_CORS || "http://localhost:9000",
@@ -21,8 +22,8 @@ module.exports = defineConfig({
     },
   },
   admin: {
-  disable: false,
-  path: "/app",
-  backendUrl: process.env.MEDUSA_ADMIN_BACKEND_URL || process.env.BACKEND_URL || "http://localhost:9000",
-},
+    disable: false,
+    path: "/app",
+    backendUrl: process.env.MEDUSA_ADMIN_BACKEND_URL || process.env.BACKEND_URL || "http://localhost:9000",
+  },
 })

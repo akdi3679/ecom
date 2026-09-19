@@ -4,7 +4,7 @@ const utils_1 = require("@medusajs/framework/utils");
 (0, utils_1.loadEnv)(process.env.NODE_ENV || "development", process.cwd());
 module.exports = (0, utils_1.defineConfig)({
     projectConfig: {
-        databaseUrl: process.env.DATABASE_URL,
+        databaseUrl: process.env.DATABASE_URL, redisUrl: process.env.REDIS_URL,
         http: {
             storeCors: process.env.STORE_CORS || "http://localhost:8000",
             adminCors: process.env.ADMIN_CORS || "http://localhost:9000",

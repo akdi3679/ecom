@@ -5,6 +5,17 @@ const utils_1 = require("@medusajs/framework/utils");
 module.exports = (0, utils_1.defineConfig)({
     projectConfig: {
         databaseUrl: process.env.DATABASE_URL, redisUrl: process.env.REDIS_URL,
+    redisOptions: {
+      maxRetriesPerRequest: 3,
+      retryStrategy: (times) => Math.min(times * 50, 2000),
+      reconnectOnError: (err) => {
+        const targetError = "ECONNRESET";
+        if (err.message.includes(targetError)) {
+          return true;
+        }
+        return false;
+      }
+    },
         http: {
             storeCors: process.env.STORE_CORS || "http://localhost:8000",
             adminCors: process.env.ADMIN_CORS || "http://localhost:9000",
